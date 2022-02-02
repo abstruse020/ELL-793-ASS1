@@ -32,10 +32,10 @@ def mat_to_parameters(P):
     y0=K[1][2]
     tan_theta=K[0][0]/(-K[0][1])
     theta=mpmath.atan(tan_theta)
-    print("Alpha",alpha)
-    print("the difference between the  centre of camera coordinate frame and the image center along the x axis",x0)
-    print("the difference between the  centre of camera coordinate frame and the image center along the y axis",y0)
-  
+    print("Alpha:",alpha)
+    # print("The difference between the  centre of camera coordinate frame and the image \ncentre along the x axis:",x0)
+    # print("The difference between the  centre of camera coordinate frame and the image \ncentre along the y axis:",y0)
+    print("Centre of camera coordinate frame and img centre:\n",(x0,y0),'\n')
     sin_theta=mpmath.sin(theta)
     beta=K[1][1]*sin_theta
   
@@ -43,14 +43,15 @@ def mat_to_parameters(P):
     fx=K[0][0]
     fy=K[1][1]
     s=K[0][1]
-    print("intrinsic camera matrix",K)
-    print("Translation matrix ",T)
-    print("Rotation matrix",R)
+    print("Intrinsic camera matrix:\n",K,'\n')
+    print("Translation matrix:\n",T,'\n')
+    print("Rotation matrix:\n",R,'\n')
   
-    print("camera focal length in the x axis in pixels",fx)
-    print("camera focal length in the y axis in pixels",fy)
-    print("skew parameter",s)
-    print("The angle between the x-axis and y-axis in the image plane",theta)
+    print("Camera focal length \n\tin the x axis in pixels:",fx)
+    print("Camera focal length \n\tin the y axis in pixels:",fy)
+    print()
+    print("Skew parameter:",s)
+    print("The angle between the x-axis and y-axis in the image plane (in degree)",abs(theta)*180/mpmath.pi)
 
 
    
