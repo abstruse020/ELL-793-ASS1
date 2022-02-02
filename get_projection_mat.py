@@ -40,7 +40,7 @@ def normalize_pts(data):
     data[:, 3:] = p_2d[0:2,:].T
     data[:, :3] = p_3d[0:3,:].T
     
-    return data, T, U 
+    return data, T, U
 
 def denormalize_pts(projection_matrix,T, U):
     proj = np.dot( np.dot( np.linalg.inv(T), projection_matrix), U)
@@ -70,7 +70,7 @@ def solve_homogeneous_eqn(A,b):
     
     x= V[-1,:] / V[-1,-1]
     
-    return x.reshape(3,4)
+    return x
     
 
 def get_projection_matrix(data):
@@ -87,7 +87,7 @@ def get_projection_matrix(data):
     Projection matrix.
     
     '''
-    debug = False
+    debug = True
     n  = len(data)
     Pi = np.ones((n, 4))
     P  = np.zeros((2*n, 12))
@@ -95,7 +95,8 @@ def get_projection_matrix(data):
     Y  = np.zeros(n)
     
     # Normalizing the data
-    data, T, U = normalize_pts(data)
+    # data, T, U = normalize_pts(data)
+    print('Normalized Data:\n', data)
     
     print('Pi matrix:') if debug  else None
     for i, row in enumerate(data):
@@ -105,13 +106,18 @@ def get_projection_matrix(data):
         Y[i] = row[4]
         print(Pi[i]) if debug else None
     
+    # print('--------------------------------')
+    # print('2d Points:')
+    # for x,y in zip(X,Y):
+    #     print(x,y)
+    
     print('--------------------------------') if debug else None
     print('making P matrix') if debug else None
     index = 0
     for i in range(0, 2*n ,2):
         print('for i:',i) if debug else None
-        row1 = list(Pi[index]) + [0,0,0,0] + list(-1 * X[index] * Pi[index])
-        row2 = [0,0,0,0] + list(Pi[index]) + list(-1 * Y[index] * Pi[index])
+        row1 = list(Pi[index]) + [0.0, 0.0, 0.0, 0.0] + list(-1.0 * X[index] * Pi[index])
+        row2 = [0.0, 0.0, 0.0, 0.0] + list(Pi[index]) + list(-1.0 * Y[index] * Pi[index])
         # row1 = [Pi[index], np.zeros(4), -1 * X[index] * Pi[index]]
         # row2 = [np.zeros(4), Pi[index], -1 * Y[index] * Pi[index]]
         P[i] = row1
@@ -125,23 +131,25 @@ def get_projection_matrix(data):
     b = np.zeros(2*n)
     
     # Calculating projection matrix using least square
-    #projection_matrix = np.linalg.lstsq(P, b, rcond = None)[0]
+    # projection_matrix = np.linalg.lstsq(P, b, rcond = None)[0]
     
     # Calculating projection matric using SVD
     projection_matrix = solve_homogeneous_eqn(P, b)
     
-    # Denormalize the matrix
-    projection_matrix = denormalize_pts(projection_matrix, T, U)
+    projection_matrix = projection_matrix.reshape(3,4)
     
-    print('shape of prjection matrix:\n',projection_matrix.shape)
-    print('complete projection matrix:\n', projection_matrix)
+    # Denormalize the matrix
+    # projection_matrix = denormalize_pts(projection_matrix, T, U)
+    
+    print('Shape of prjection matrix:\n',projection_matrix.shape)
+    print('Calculated projection matrix:\n', projection_matrix)
     return projection_matrix
 
 #%% Run above
 
-data = np.random.rand(6,5)
-print('data->\n',data)
+# data = np.random.rand(6,5)
+# print('data->\n',data)
 
-get_projection_matrix(data)
+# get_projection_matrix(data)
 
 
