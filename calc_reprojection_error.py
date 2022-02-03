@@ -36,6 +36,7 @@ def reprojection_error(data, projection_mat):
         img_pt = np.dot(projection_mat, pts_3d[i])
         print('Image points calculated:', img_pt) if debug else None
         img_pt =  img_pt/img_pt[-1]
+        print(img_pt) if debug else None
         pred_xy.append(img_pt)
         print('Normalized image point calculated:', img_pt) if debug else None
         print('Original Image Points:', pts_2d[i]) if debug else None
@@ -44,7 +45,7 @@ def reprojection_error(data, projection_mat):
         mean_error+= error/data.shape[0]
         print() if debug else None
     mean_error = np.sqrt(mean_error)
-    return mean_error, img_pt
+    return mean_error, pred_xy
 
 #%% Run this to test the above code
 
