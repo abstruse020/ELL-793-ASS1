@@ -32,7 +32,7 @@ def mat_to_parameters(P):
     y0=K[1][2]
     tan_theta=K[0][0]/(-K[0][1])
     theta=mpmath.atan(tan_theta)
-    print("Alpha:",alpha)
+    # print("Alpha:",alpha)
     # print("The difference between the  centre of camera coordinate frame and the image \ncentre along the x axis:",x0)
     # print("The difference between the  centre of camera coordinate frame and the image \ncentre along the y axis:",y0)
     print("Centre of camera coordinate frame and img centre:\n",(x0,y0),'\n')
@@ -52,9 +52,8 @@ def mat_to_parameters(P):
     print()
     print("Skew parameter:",s)
     print("The angle between the x-axis and y-axis in the image plane (in degree)",abs(theta)*180/mpmath.pi)
-
-
-   
+    print("The value of alpha is:",alpha)
+    print("The value of beta is:",beta)
 
 
 # mat_to_parameters(P)

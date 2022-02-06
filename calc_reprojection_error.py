@@ -55,10 +55,10 @@ projection_mat = np.random.rand(3,4)
 reprojection_error(data, projection_mat)
 #%%
 
-mat1 = [[1,2,1],
-        [0,4,5]]
-mat2 = [[3,4,5],
-        [4,5,6]]
-mat2 = np.array(mat2)
-print(np.dot(mat1, mat2[0].T))
+# mat1 = [[1,2,1],
+#         [0,4,5]]
+# mat2 = [[3,4,5],
+#         [4,5,6]]
+# mat2 = np.array(mat2)
+# print(np.dot(mat1, mat2[0].T))
 

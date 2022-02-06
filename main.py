@@ -14,18 +14,6 @@ from plot_it import plot_points_on_image
 
 
 # Dataset from image
-# xyz = [[-875, 0, 9.755], [442, 0, 9.755], [1921, 0, 9.755], [2951, 0.5, 9.755], [-4132, 0.5, 23.618],
-#     [-876, 0, 23.618]]
-#     # Known pixel coordinates
-# uv = [[76, 706], [702, 706], [1440, 706], [1867, 706], [264, 523], [625, 523]]
-# data = [
-#         [-875, 0, 9.755, 76, 706],
-#         [442, 0, 9.755, 702, 706],
-#         [1921, 0, 9.755, 1440, 706],
-#         [2951, 0.5, 9.755, 1867, 706],
-#         [-4132, 0.5, 23.618, 264, 523],
-#         [-876, 0, 23.618, 625, 523],
-#         ]
 
 # data = [[0,	0,	0,	1792,	876],
         # [0,	4,	2,	1217,	731],
@@ -53,7 +41,9 @@ from plot_it import plot_points_on_image
 
 # Description
 # Reprojection Error for Train Set: 0.281811199860872 for [0:6]
+# Reprojection Error for Test Set: 7.611439207240161 without worst point
 # Reprojection Error for Test Set: 15.089786761561303 with worst point
+
 data = [[0,	0,	0,	1792,	876],
         [1,	5,	0,	1143,	1251],
         [2,	0,	3,	2102,	452],
@@ -66,7 +56,6 @@ data = [[0,	0,	0,	1792,	876],
         [0,	2,	3,	1547,	435],  #Not very good e^2:64
         ]
 data = np.array(data, dtype=(np.double))
-
 
 # Main code to perform camera calibration
 
@@ -83,7 +72,7 @@ print('Reprojection Error for Train Set:',train_rep_error,'\n')
 
 test_rep_error, pred_xy = reprojection_error(data[:], projection_matrix)
 print('Reprojection Error for Test Set:',test_rep_error,'\n')
-plot_points_on_image(np.array(pred_xy), image)
+plot_points_on_image(np.array(pred_xy), data, image)
 
 
 print('--------Camera values-------------')

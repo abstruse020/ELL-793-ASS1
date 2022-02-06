@@ -18,8 +18,8 @@ def normalize_pts(data):
     
     mean_2d = np.mean(p_2d, 0)
     mean_3d = np.mean(p_3d, 0)
-    std_2d = np.std(p_2d)/np.sqrt(2)
-    std_3d = np.std(p_3d)/np.sqrt(3)
+    std_2d = np.std(p_2d)
+    std_3d = np.std(p_3d)
     
     T = np.array([
         [std_2d, 0, mean_2d[0]], 
@@ -88,7 +88,7 @@ def get_projection_matrix(data):
     
     '''
     debug = False
-    normalize = False
+    normalize = True
     n  = len(data)
     Pi = np.ones((n, 4))
     P  = np.zeros((2*n, 12))
